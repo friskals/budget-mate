@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Account;
 use App\Models\Icon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -32,7 +33,11 @@ class AccountTest extends TestCase
 
     public function test_show_account_success(): void
     {
+        $this->withoutExceptionHandling();
 
+        $account = Account::factory()->create();
+
+        $this->get(self::ACCOUNT_ENDPOINT.'/'.$account->account_id)->assertSee($account->name);
     }
 
     public function test_update_account_success(): void
