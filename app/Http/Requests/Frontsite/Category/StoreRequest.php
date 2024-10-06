@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Category;
+namespace App\Http\Requests\Frontsite\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,8 @@ class StoreRequest extends FormRequest
         return [
             'type' => ['required','min:3'],
             'icon_id' => ['required', 'exists:icons,icon_id'],
-            'name' => ['required', 'min:5']
+            'name' => ['required', 'min:5'],
+            'initial_balance' => ['nullable','float']
         ];
     }
 }

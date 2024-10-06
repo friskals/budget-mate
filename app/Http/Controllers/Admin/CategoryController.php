@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\EntityEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Category\StoreRequest;
+use App\Http\Requests\Frontsite\Category\StoreRequest;
+use App\Library\Common\IdGenerator;
 use App\Models\Category;
-use App\Service\IdGenerator;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    const NUMBER_OF_ITEM_PER_PAGE = 5;
+    const NUMBER_OF_ITEM_PER_PAGE = 10;
 
     /**
      * Display a listing of the resource.
