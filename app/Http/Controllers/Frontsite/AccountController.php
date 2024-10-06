@@ -93,6 +93,15 @@ class AccountController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //TODO delete all related transaction for the given id
+        $account = Account::where('account_id', $id)->first();
+
+        if(!is_null($account)){
+            $account->delete();
+        }
+
+        session()->flash('success', 'Account deleted successfully');
+
+        return true;
     }
 }
