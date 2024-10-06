@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
         session()->flash('success', 'Category Created Successfully');
 
-        return route('category.index');
+        return true;
     }
 
     /**
@@ -57,7 +57,9 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Category::where('category_id', $id)->first();
+
+        return ['category' => $category];
     }
 
     /**

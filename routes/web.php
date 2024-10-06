@@ -11,4 +11,5 @@ Route::get('/', function () {
 Route::prefix('category')->group(function (){
     Route::get('/', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/{id}', [CategoryController::class, 'show'])->name('category.show');
 });
