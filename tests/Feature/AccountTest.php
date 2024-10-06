@@ -55,6 +55,12 @@ class AccountTest extends TestCase
 
     public function test_delete_account_success(): void
     {
+        $this->withoutExceptionHandling();
 
+        $account = Account::factory()->create();
+
+        $this->delete(self::ACCOUNT_ENDPOINT.'/'.$account->account_id);
+
+        $this->assertDatabaseMissing('accounts', ['account_id' => $account->account_id]);
     }
 }
