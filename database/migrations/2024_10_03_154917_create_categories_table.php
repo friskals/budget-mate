@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('category_id');
+            $table->string('category_id')->primary();
             $table->string('name');
-            $table->float('initial_balance');
+            $table->string('status')->default('enable');
+            $table->string('user_id');
+            $table->float('initial_balance')->default(0);
             $table->string('icon_id');
             $table->timestamps();
+            $table->index(['user_id','status']);
         });
     }
 
