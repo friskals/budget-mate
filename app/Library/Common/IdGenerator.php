@@ -1,25 +1,16 @@
 <?php
 
-namespace App\Service;
+namespace App\Library\Common;
 
-use App\Models\Category;
+use App\Enums\EntityEnum;
 use Carbon\Carbon;
 
 class IdGenerator{
-    public static function generateId(string $entity){
+    public static function generateId(EntityEnum $entity){
 
         switch ($entity){
-            case "CATEGORY":
+            case EntityEnum::CATEGORY:
                 $infix = 'CTRY';
-                break;
-            case "ACCOUNT":
-                $infix = "ACCT";
-                break;
-            case "BUDGET":
-                $infix = "BDGT";
-                break;
-            case "BUDGET_USAGE";
-                $infix = "BDSE";
                 break;
             default:
                 $infix = "DFLT";
