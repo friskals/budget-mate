@@ -2,6 +2,7 @@
 
 namespace Feature;
 
+use App\Models\Category;
 use App\Models\Icon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -31,5 +32,15 @@ class CategoryTest extends TestCase
 
         $this->get(self::ENDPOINT, $store_request)
             ->assertSee('Entertainment');
+    }
+
+    public function test_show_detail()
+    {
+        $this->withoutExceptionHandling();
+
+        $category = Category::factory()->create();
+
+        $this->get(self::ENDPOINT.'/'.$category->category_id, ['id'=>$category->category_id])
+            ->assertSee($category->id, $category->name);
     }
 }
