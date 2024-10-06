@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\EntityEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontsite\Category\StoreRequest;
+use App\Http\Requests\Frontsite\Category\UpdateRequest;
 use App\Library\Common\IdGenerator;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -73,9 +74,17 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request)
     {
-        //
+        $validated_request= $request->validated();
+
+        $category = Category::where('category_id',$request['category_id'])->first();
+
+        if(!is_null($category)){
+            $category->update($validated_request);
+        }
+
+        return true;
     }
 
     /**
