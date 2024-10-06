@@ -40,11 +40,11 @@ class CategoryTest extends TestCase
 
         $category = Category::factory()->create();
 
-        $this->get(self::ENDPOINT.'/'.$category->category_id, ['id'=>$category->category_id])
+        $this->get(self::ENDPOINT.'/'.$category->category_id)
             ->assertSee($category->id, $category->name);
     }
 
-    public function  test_update_success()
+    public function test_update_success()
     {
         $this->withoutExceptionHandling();
 
@@ -58,5 +58,14 @@ class CategoryTest extends TestCase
         $this->put(self::ENDPOINT, $updated_category);
 
         $this->assertDatabaseHas('categories', ['category_id'=>$category->category_id, 'name'=>$updated_category['name']]);
+    }
+
+    public function test_delete_category_successfully()
+    {
+        $category = Category::factory()->create();
+
+        $this->delete(self::ENDPOINT.'/'.$category->category_id);
+
+        $this->assertDatabaseMissing('categories', ['category_id'=>$category->category_id]);
     }
 }
