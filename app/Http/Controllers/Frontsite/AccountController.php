@@ -47,7 +47,8 @@ class AccountController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $account = Account::where('account_id', $id)->first();
+        return $account;
     }
 
     /**
