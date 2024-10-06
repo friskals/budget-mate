@@ -42,7 +42,15 @@ class AccountTest extends TestCase
 
     public function test_update_account_success(): void
     {
+        $this->withoutExceptionHandling();
 
+        $account = Account::factory()->create();
+
+        $updated_account['name'] = $account->name.' Update';
+
+        $this->put(self::ACCOUNT_ENDPOINT.'/'.$account->account_id, $updated_account);
+
+        $this->assertDatabaseHas('accounts', ['account_id'=> $account->account_id, 'name'=> $updated_account['name']]);
     }
 
     public function test_delete_account_success(): void
