@@ -8,7 +8,6 @@ use App\Http\Requests\Frontsite\Category\StoreRequest;
 use App\Http\Requests\Frontsite\Category\UpdateRequest;
 use App\Library\Common\IdGenerator;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -92,6 +91,12 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::where('category_id', $id)->first();
+
+        if(!is_null($category)){
+            $category->delete();
+        }
+
+        return true;
     }
 }
