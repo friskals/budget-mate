@@ -3,6 +3,7 @@
 use App\Http\Controllers\web\TestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Frontsite\AccountController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,3 +16,10 @@ Route::prefix('category')->group(function (){
     Route::put('/', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 });
+
+Route::prefix('account')->group(function (){
+    Route::post('/', [AccountController::class, 'store'])->name('account.store');
+    Route::get('/{id}', [AccountController::class,'show'])->name('account.show');
+    Route::put('/{id}', [AccountController::class,'update'])->name('account.update');
+});
+
