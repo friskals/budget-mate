@@ -12,6 +12,12 @@ class IdGenerator{
             case EntityEnum::CATEGORY:
                 $infix = 'CTRY';
                 break;
+            case EntityEnum::ACCOUNT:
+                $infix = 'ACCT';
+                break;
+            case EntityEnum::TRANSACTION:
+                $infix = 'TSTN';
+                break;
             default:
                 $infix = "DFLT";
         }
