@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\web\TestController;
+use App\Http\Controllers\Frontsite\TransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Frontsite\AccountController;
@@ -24,3 +24,6 @@ Route::prefix('account')->group(function (){
     Route::delete('/{id}', [AccountController::class,'destroy'])->name('account.destroy');
 });
 
+Route::prefix('/transaction')->group(function (){
+   Route::post('/', [TransactionController::class, 'store'])->name('transaction.store');
+});
