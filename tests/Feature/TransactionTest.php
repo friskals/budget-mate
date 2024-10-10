@@ -72,4 +72,13 @@ class TransactionTest extends TestCase
         $this->assertEquals($transaction_new_data['memo'], $transaction['memo']);
         $this->assertEquals($transaction_new_data['transaction_date'], $transaction['transaction_date']);
     }
+
+    public function test_delete_transaction_successfully(){
+
+        $transaction = Transaction::factory()->create();
+
+        $this->delete(self::ENDPOINT."/".$transaction->transaction_id);
+
+        $this->assertDatabaseMissing('transactions', ['transaction_id', $transaction->transaction_id]);
+    }
 }
