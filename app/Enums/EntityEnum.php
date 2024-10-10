@@ -9,4 +9,6 @@ enum EntityEnum: string
     case ACCOUNT = 'ACCOUNT';
 
     case TRANSACTION = 'TRANSACTION';
+
+    case BUDGET = 'BUDGET';
 }
