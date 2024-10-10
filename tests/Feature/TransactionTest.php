@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Icon;
+use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -47,4 +48,28 @@ class TransactionTest extends TestCase
      * - test_update_detail -> all field, coba pake fresh
      * - scenario update tanggal di budget usage beda lagi
      */
+
+    public function test_update_transaction_successfully(){
+        $this->withoutExceptionHandling();
+
+        $transaction = Transaction::factory()->create();
+
+        $category = Category::factory()->create();
+
+        $transaction_new_data = [
+            'category_id' => $category->category_id,
+            'amount' => 20,
+            'memo' => 'watch movie update',
+            'transaction_date' => now(),
+        ];
+
+        $this->put(self::ENDPOINT.'/'.$transaction->transaction_id, $transaction_new_data);
+
+        $transaction->refresh();
+
+        $this->assertEquals($transaction_new_data['category_id'], $transaction['category_id']);
+        $this->assertEquals($transaction_new_data['amount'], $transaction['amount']);
+        $this->assertEquals($transaction_new_data['memo'], $transaction['memo']);
+        $this->assertEquals($transaction_new_data['transaction_date'], $transaction['transaction_date']);
+    }
 }
