@@ -57,7 +57,9 @@ class TransactionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $transaction = Transaction::where('transaction_id', $id)->first();
+
+        return $transaction;
     }
 
     /**
