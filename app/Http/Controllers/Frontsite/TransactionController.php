@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Frontsite;
 use App\Enums\EntityEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontsite\Transaction\TransactionStoreRequest;
+use App\Http\Requests\Frontsite\Transaction\TransactionUpdateRequest;
 use App\Library\Common\IdGenerator;
 use App\Models\Category;
 use App\Models\Icon;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -71,9 +71,30 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TransactionUpdateRequest $request, string $id)
     {
-        //
+        //TODO
+        //query by user_id make sure only the authorized user
+        //can update their data
+        $transaction = Transaction::where('transaction_id', $id)->first();
+
+        if(is_null($transaction)){
+            session()->flash('error', 'no transaction found');
+                return route('/transaction');
+        }
+
+        $updated_data = $request->validated();
+
+        if(!count($updated_data)){
+            session()->flash('success', 'no updated data');
+            return route('/transaction');
+        }
+
+        $transaction->update($updated_data);
+
+        session()->flash('success', 'data updated successfully');
+
+        return true;
     }
 
     /**
