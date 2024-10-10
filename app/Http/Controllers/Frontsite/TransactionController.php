@@ -102,6 +102,17 @@ class TransactionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $transaction = Transaction::where('transaction_id', $id)->first();
+
+        if(!count($transaction)){
+            session()->flash('error', 'transaction not found');
+            return route('/transaction');
+        }
+
+        $transaction->delete();
+
+        session()->flash('success', 'data deleted successfully');
+
+        return true;
     }
 }
