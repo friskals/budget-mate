@@ -6,12 +6,10 @@ use App\Enums\EntityEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontsite\Budget\BudgetStoreRequest;
 use App\Http\Requests\Frontsite\Budget\BudgetUpdateRequest;
-use App\Http\Requests\Frontsite\Category\StoreRequest;
 use App\Library\Common\IdGenerator;
 use App\Models\Budget;
+use App\Models\BudgetCategory;
 use App\Models\Category;
-use Illuminate\Http\Request;
-use Symfony\Component\ErrorHandler\Debug;
 
 class BudgetController extends Controller
 {
@@ -41,7 +39,29 @@ class BudgetController extends Controller
         $validated_data['user_id'] = 1;
         $validated_data['budget_id'] = IdGenerator::generateId(EntityEnum::BUDGET);
 
-        Budget::create($validated_data);
+        $budget = Budget::create($validated_data);
+
+        $categories = explode(',',$validated_data['category_id']);
+
+        $count_valid_category = Category::whereIn('category_id', $categories)->count();
+
+        if(count($categories) != $count_valid_category){
+            session()->flash('error', 'Invalid category');
+            return false;
+        }
+
+        $budget_categories = [];
+
+        foreach($categories as $category){
+            array_push($budget_categories, [
+                'category_id' => $category,
+                'budget_id' => $budget->budget_id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
+        BudgetCategory::insert($budget_categories);
 
         return true;
     }

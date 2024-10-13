@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('budget_id');
             $table->string('name');
             $table->float('limit');
-            $table->string('category_id');
             $table->integer('day_of_month');
             $table->string('user_id');
             $table->index(['user_id', 'budget_id']);
