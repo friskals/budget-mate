@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Account;
 use App\Models\Category;
-use App\Models\Icon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +18,9 @@ class TransactionFactory extends Factory
      */
     public function definition(): array
     {
-
         $category = Category::factory()->create();
+
+        $account = Account::factory()->create();
 
         return [
             'category_id' => $category->category_id,
@@ -29,7 +30,8 @@ class TransactionFactory extends Factory
             'memo' => 'watch movie',
             'transaction_date' => $this->faker->date(),
             'user_id' => 1,
-            'transaction_id' => '202411202TRSCioieo'
+            'transaction_id' => '202411202TRSCioieo',
+            'account_id' => $account->account_id
         ];
     }
 }
