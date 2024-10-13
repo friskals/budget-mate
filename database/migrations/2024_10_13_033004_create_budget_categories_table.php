@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('budget_id');
             $table->string('category_id');
-            $table->index(['budget_id','category_id']);
+            $table->unique(['budget_id','category_id']);
             $table->timestamps();
         });
     }
