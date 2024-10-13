@@ -25,7 +25,8 @@ class TransactionStoreRequest extends FormRequest
             'category_id' => ['required', 'exists:categories,category_id'],
             'amount' => ['required','numeric'],
             'memo' => ['nullable'],
-            'transaction_date' => ['required', 'date']
+            'transaction_date' => ['required', 'date'],
+            'account_id' => ['required']
         ];
     }
 }

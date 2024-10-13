@@ -21,7 +21,9 @@ return new class extends Migration
             $table->float('memo')->nullable();
             $table->date('transaction_date');
             $table->string('user_id');
+            $table->string('account_id');
             $table->index(['user_id','category_id','created_at']);
+            $table->index(['user_id', 'account_id']);
             $table->timestamps();
         });
     }

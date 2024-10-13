@@ -18,6 +18,7 @@ class Transaction extends Model
         'memo',
         'transaction_date',
         'user_id',
-        'transaction_id'
+        'transaction_id',
+        'account_id'
     ];
 }
