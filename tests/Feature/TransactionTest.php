@@ -86,8 +86,8 @@ class TransactionTest extends TestCase
 
         $transaction = Transaction::factory()->create();
 
-        $this->get(self::ENDPOINT."/".$transaction->transaction_id)
-            ->assertSee([$transaction->transaction_id], $transaction->memo);
+        $this->get(self::ENDPOINT.'/'.$transaction->transaction_id)
+            ->assertSee([$transaction->transaction_id, $transaction->memo]);
     }
 
     public function test_delete_transaction_successfully(){
