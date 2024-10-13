@@ -21,4 +21,8 @@ class Transaction extends Model
         'transaction_id',
         'account_id'
     ];
+
+    protected $appends =[
+        'spending'
+    ];
 }

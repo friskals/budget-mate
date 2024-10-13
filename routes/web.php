@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontsite\BudgetController;
+use App\Http\Controllers\Frontsite\BudgetUsageController;
 use App\Http\Controllers\Frontsite\TransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
@@ -37,4 +38,8 @@ Route::prefix('budget')->group(function (){
     Route::put('/{id}', [BudgetController::class, 'update'])->name('budget.update');
     Route::get('/{id}', [BudgetController::class, 'show'])->name('budget.show');
     Route::delete('/{id}', [BudgetController::class, 'destroy'])->name('budget.destroy');
+
+    Route::prefix('/usage')->group(function (){
+       Route::post('/',[BudgetUsageController::class, 'index'])->name('budget.usage');
+    });
 });
