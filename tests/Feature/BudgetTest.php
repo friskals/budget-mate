@@ -28,7 +28,16 @@ class BudgetTest extends TestCase
 
         $this->post(self::BUDGET_ENDPOINT, $budget_request);
 
-        $this->assertDatabaseHas('budgets', $budget_request);
+        $this->assertDatabaseHas('budgets', [
+            'name' => 'Education',
+            'limit' => 100000,
+            'day_of_month' => 1
+        ]);
+
+        $this->assertDatabaseHas('budget_categories', [
+            'category_id' => $category->category_id
+        ]);
+
     }
 
     public function test_show_budget_success(): void
