@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use App\Models\Account;
 use App\Models\Budget;
@@ -8,9 +8,8 @@ use App\Models\BudgetCategory;
 use App\Models\Category;
 use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
-class BudgetUsageTest extends TestCase
+class BudgetUsageTest extends UserBaseTestCase
 {
     use RefreshDatabase;
     private const BUDGET_USAGE_ENDPOINT = '/budget/usage';

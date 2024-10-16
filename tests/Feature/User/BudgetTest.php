@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use App\Models\Budget;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class BudgetTest extends TestCase
+class BudgetTest extends UserBaseTestCase
 {
     const BUDGET_ENDPOINT = '/budget';
 

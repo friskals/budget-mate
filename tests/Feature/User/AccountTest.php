@@ -1,14 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use App\Models\Account;
 use App\Models\Icon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AccountTest extends TestCase
+class AccountTest extends UserBaseTestCase
 {
     const ACCOUNT_ENDPOINT = '/account';
 
@@ -16,14 +15,15 @@ class AccountTest extends TestCase
 
     public function test_store_account_success(): void
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $icon = Icon::factory()->create();
 
         $store_request = [
             'name' => 'BCA',
-            'icon_id' => $icon->icon_id,
-            'user_id' => 1
+            'icon_id' => $icon->icon_id
         ];
 
         $this->post(self::ACCOUNT_ENDPOINT, $store_request);
@@ -33,6 +33,8 @@ class AccountTest extends TestCase
 
     public function test_show_account_success(): void
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $account = Account::factory()->create();
@@ -42,6 +44,8 @@ class AccountTest extends TestCase
 
     public function test_update_account_success(): void
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $account = Account::factory()->create();

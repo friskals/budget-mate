@@ -1,15 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use App\Models\Account;
 use App\Models\Category;
 use App\Models\Icon;
 use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
-class TransactionTest extends TestCase
+class TransactionTest extends UserBaseTestCase
 {
     use RefreshDatabase;
     private const ENDPOINT = '/transaction';

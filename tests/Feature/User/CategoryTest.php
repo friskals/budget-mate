@@ -1,13 +1,12 @@
 <?php
 
-namespace Feature;
+namespace Tests\Feature\User;
 
 use App\Models\Category;
 use App\Models\Icon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
-class CategoryTest extends TestCase
+class CategoryTest extends UserBaseTestCase
 {
     use RefreshDatabase;
 
