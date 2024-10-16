@@ -8,13 +8,14 @@ use App\Models\Budget;
 use App\Models\BudgetCategory;
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class BudgetUsageController extends Controller
 {
     public function index(BudgetUsageFilterRequest $request)
     {
         $filter = $request->validated();
-        $budgets = Budget::where('user_id', 1)->get();
+        $budgets = Budget::where('user_id', Auth::id())->get();
         $end_date_filter = Carbon::createFromFormat('Y-m-d', $filter['end_date']);
 
         $query_filter = [];

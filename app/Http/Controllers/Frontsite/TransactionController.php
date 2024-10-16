@@ -10,6 +10,7 @@ use App\Library\Common\IdGenerator;
 use App\Models\Category;
 use App\Models\Icon;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -42,7 +43,7 @@ class TransactionController extends Controller
 
         $transaction_data =   array_merge($transaction_data, [
             'transaction_id' => IdGenerator::generateId(EntityEnum::TRANSACTION),
-            'user_id' => 1,
+            'user_id' => Auth::id(),
             'category_type' => $category->type,
             'category_logo' => $icon->logo,
         ]);

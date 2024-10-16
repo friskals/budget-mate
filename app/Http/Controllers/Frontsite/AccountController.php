@@ -6,10 +6,9 @@ use App\Enums\EntityEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontsite\Account\AccountStoreRequest;
 use App\Http\Requests\Frontsite\Account\AccountUpdateRequest;
-use App\Http\Requests\Frontsite\Category\StoreRequest;
 use App\Library\Common\IdGenerator;
 use App\Models\Account;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
@@ -36,7 +35,7 @@ class AccountController extends Controller
     {
         $account_data = $request->validated();
 
-        $account_data['user_id'] = 1;
+        $account_data['user_id'] = Auth::id();
         $account_data['account_id'] = IdGenerator::generateId(EntityEnum::CATEGORY);
 
         Account::create($account_data);

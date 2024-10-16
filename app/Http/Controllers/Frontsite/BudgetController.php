@@ -10,6 +10,7 @@ use App\Library\Common\IdGenerator;
 use App\Models\Budget;
 use App\Models\BudgetCategory;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class BudgetController extends Controller
 {
@@ -36,7 +37,7 @@ class BudgetController extends Controller
     {
         $validated_data = $request->validated();
 
-        $validated_data['user_id'] = 1;
+        $validated_data['user_id'] = Auth::id();
         $validated_data['budget_id'] = IdGenerator::generateId(EntityEnum::BUDGET);
 
         $budget = Budget::create($validated_data);

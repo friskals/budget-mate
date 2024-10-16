@@ -8,6 +8,8 @@ use App\Http\Requests\Frontsite\Category\StoreRequest;
 use App\Http\Requests\Frontsite\Category\UpdateRequest;
 use App\Library\Common\IdGenerator;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+use function GuzzleHttp\json_encode;
 
 class CategoryController extends Controller
 {
@@ -18,7 +20,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->paginate(self::NUMBER_OF_ITEM_PER_PAGE);
+        $categories = Category::where('user_id', Auth::id())
+                    ->latest()
+                    ->paginate(self::NUMBER_OF_ITEM_PER_PAGE);
 
         return view('frontsite.category.index', ['categories' => $categories]);
     }
@@ -37,13 +41,11 @@ class CategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $user_id = 1;
-
         $validated_requests = $request->validated();
 
         $validated_requests['category_id'] = IdGenerator::generateId(EntityEnum::CATEGORY);
 
-        $validated_requests['user_id'] = $user_id;
+        $validated_requests['user_id'] = Auth::id();
 
         Category::create($validated_requests);
 
