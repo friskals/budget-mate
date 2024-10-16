@@ -17,12 +17,7 @@ class BudgetFactory extends Factory
      */
     public function definition(): array
     {
-        $category1 = Category::factory()->create();
-
-        $category2 = Category::factory()->create();
-
         return [
-            'category_id' => $category1->category_id.",".$category2->category_id,
             'limit' => 100000,
             'name' => 'Entertainment',
             'day_of_month' => '1',
