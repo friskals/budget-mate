@@ -7,8 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontsite\Category\StoreRequest;
 use App\Http\Requests\Frontsite\Category\UpdateRequest;
 use App\Library\Common\IdGenerator;
-use App\Models\Budget;
+use App\Models\BudgetCategory;
 use App\Models\Category;
+use App\Models\Icon;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,9 +32,11 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(StoreRequest $request)
+    public function create()
     {
-        return route('category.index');
+        $icons = Icon::where('icon_usage', 'income')->get();
+
+        return view('frontsite.category.create', ['icons' => $icons]);
 
     }
 
@@ -52,7 +55,7 @@ class CategoryController extends Controller
 
         session()->flash('success', 'Category Created Successfully');
 
-        return true;
+        return redirect()->route('category.index');
     }
 
     /**
@@ -107,7 +110,7 @@ class CategoryController extends Controller
             return redirect()->route('category.index');
         }
 
-        $used_in_budget = Budget::where('category_id', $id)->first();
+        $used_in_budget = BudgetCategory::where('category_id', $id)->first();
 
         if(!is_null($used_in_budget)){
             session()->flash('error', 'can\'t delete category, used in budget');
