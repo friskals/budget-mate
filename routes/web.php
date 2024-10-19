@@ -14,6 +14,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function (){
     Route::prefix('category')->group(function (){
+        Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
         Route::get('/', [CategoryController::class, 'index'])->name('category.index');
         Route::post('/', [CategoryController::class, 'store'])->name('category.store');
         Route::get('/{id}', [CategoryController::class, 'show'])->name('category.show');
