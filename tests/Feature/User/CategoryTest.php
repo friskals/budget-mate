@@ -67,4 +67,12 @@ class CategoryTest extends UserBaseTestCase
 
         $this->assertDatabaseMissing('categories', ['category_id'=>$category->category_id]);
     }
+
+    public function test_view_create_category_success(): void
+    {
+        $this->withoutExceptionHandling();
+
+        $this->get(self::ENDPOINT.'/create')->assertOk();
+
+    }
 }
