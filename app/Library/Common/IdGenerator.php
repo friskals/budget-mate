@@ -18,6 +18,8 @@ class IdGenerator{
             case EntityEnum::TRANSACTION:
                 $infix = 'TSTN';
                 break;
+            case EntityEnum::ICON:
+                $infix = 'ICON';
             default:
                 $infix = "DFLT";
         }
