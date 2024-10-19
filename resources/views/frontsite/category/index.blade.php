@@ -3,11 +3,13 @@
    <div class="row justify-content-center">
        <div class="col-md-8 mt-3">
            <h1 class="text-center mb-4">Category Management</h1>
+           <div class="mb-4">
+               <button type="button" onclick="location.href='/category/create '" class="btn btn-success">Add</button>
+           </div>
        <table class="table">
         <thead class="thead-light-lilac">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Category Id</th>
             <th scope="col">Name</th>
             <th scope="col">Created At</th>
             <th scope="col">Modified At</th>
@@ -15,13 +17,14 @@
         </tr>
         </thead>
         <tbody>
+        @php $i=0 @endphp
             @foreach($categories as $category)
-            <tr>
-                <th scope="row">1</th>
-                <td>{{$category->category_id}}</td>
+                @php $i++ @endphp
+                <tr>
+                <th scope="row">{{$i}}</th>
                 <td>{{$category->name}}</td>
                 <td>{{$category->created_at}}</td>
-                <td>{{$category->modified_at}}</td>
+                <td>{{$category->updated_at}}</td>
                 <td>
                     <a type="button" class="btn btn-primary">Edit</a>
                     <a class="btn btn-danger" href="{{route('category.destroy', $category->category_id)}}" onclick="event.preventDefault();
