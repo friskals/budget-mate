@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('status')->default('enable');
             $table->string('user_id');
-            $table->float('initial_balance')->default(0);
             $table->string('icon_id');
             $table->timestamps();
             $table->index(['user_id','type','status']);

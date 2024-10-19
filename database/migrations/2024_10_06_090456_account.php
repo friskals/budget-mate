@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('account_id');
             $table->string('name');
-            $table->float('initial_balance')->nullable();
+            $table->float('initial_balance')->default(0);
             $table->string('icon_id');
             $table->string('user_id');
             $table->index(['user_id','created_at']);
