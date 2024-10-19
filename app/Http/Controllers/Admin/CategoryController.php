@@ -7,9 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontsite\Category\StoreRequest;
 use App\Http\Requests\Frontsite\Category\UpdateRequest;
 use App\Library\Common\IdGenerator;
+use App\Models\Budget;
 use App\Models\Category;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
-use function GuzzleHttp\json_encode;
 
 class CategoryController extends Controller
 {
@@ -93,12 +94,42 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $category = Category::where('category_id', $id)->first();
+        $user_id = Auth::id();
 
-        if(!is_null($category)){
-            $category->delete();
+        $category = Category::where([
+            'category_id' => $id,
+            'user_id' => $user_id
+            ])->first();
+
+        if(is_null($category )){
+            session()->flash('error', 'category is not found');
+
+            return redirect()->route('category.index');
         }
 
-        return true;
+        $used_in_budget = Budget::where('category_id', $id)->first();
+
+        if(!is_null($used_in_budget)){
+            session()->flash('error', 'can\'t delete category, used in budget');
+
+            return redirect()->route('category.index');
+        }
+
+        $used_in_transaction = Transaction::where([
+            'user_id' => $user_id,
+            'category_id'=> $id
+        ])->first();
+
+        if(!is_null($used_in_transaction)){
+            session()->flash('error', 'can\'t delete category, used in transaction');
+
+            return redirect()->route('category.index');
+        }
+
+        $category->delete();
+
+        session()->flash('success', 'Category Deleted Successfully');
+
+        return redirect()->route('category.index');
     }
 }
