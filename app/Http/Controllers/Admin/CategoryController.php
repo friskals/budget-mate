@@ -107,6 +107,8 @@ class CategoryController extends Controller
             $category->update($validated_request);
         }
 
+        session()->flash('success', 'Category updated successfully');
+
         return redirect()->route('category.index');
     }
 

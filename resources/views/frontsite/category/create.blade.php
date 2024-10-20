@@ -29,9 +29,6 @@
                                 @foreach($icons as $icon)
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="icon_id" id="flexRadioDefault1" value="{{$icon->icon_id}}">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Default radio
-                                        </label>
                                         <img  class="small-image" src="{{ Storage::url($icon->logo) }}" alt="Profile Image">
                                     </div>
                                 @endforeach
