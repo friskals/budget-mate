@@ -15,10 +15,11 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function (){
     Route::prefix('category')->group(function (){
         Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
         Route::get('/', [CategoryController::class, 'index'])->name('category.index');
         Route::post('/', [CategoryController::class, 'store'])->name('category.store');
         Route::get('/{id}', [CategoryController::class, 'show'])->name('category.show');
-        Route::put('/', [CategoryController::class, 'update'])->name('category.update');
+        Route::put('/{id}', [CategoryController::class, 'update'])->name('category.update');
         Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
     });
 

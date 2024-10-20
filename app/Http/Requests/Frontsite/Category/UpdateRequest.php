@@ -22,7 +22,6 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => ['required'],
             'type' => ['nullable','min:3'],
             'icon_id' => ['nullable', 'exists:icons,icon_id'],
             'name' => ['nullable', 'min:5'],

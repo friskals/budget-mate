@@ -26,7 +26,7 @@
                 <td>{{$category->created_at}}</td>
                 <td>{{$category->updated_at}}</td>
                 <td>
-                    <a type="button" class="btn btn-primary">Edit</a>
+                    <a class="btn btn-primary" href="{{route('category.edit', $category->category_id)}}" ><i class="bx bx-trash me-1"></i> Edit</a>
                     <a class="btn btn-danger" href="{{route('category.destroy', $category->category_id)}}" onclick="event.preventDefault();
                                 document.getElementById('delete-form-{{ $category->category_id }}').submit();"><i class="bx bx-trash me-1"></i> Delete</a>
                     <form id="delete-form-{{ $category->category_id }}" action="{{ route('category.destroy', $category->category_id) }}" method="POST">
