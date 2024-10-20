@@ -5,6 +5,7 @@ namespace Tests\Feature\User;
 use App\Models\Category;
 use App\Models\Icon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryTest extends UserBaseTestCase
 {
@@ -50,11 +51,10 @@ class CategoryTest extends UserBaseTestCase
         $category = Category::factory()->create();
 
         $updated_category = [
-            'name' => $category->name. " Update",
-            'category_id' => $category->category_id
+            'name' => $category->name. " Update"
         ];
 
-        $this->put(self::ENDPOINT, $updated_category);
+        $this->put(self::ENDPOINT.'/'.$category->category_id, $updated_category);
 
         $this->assertDatabaseHas('categories', ['category_id'=>$category->category_id, 'name'=>$updated_category['name']]);
     }
@@ -73,6 +73,12 @@ class CategoryTest extends UserBaseTestCase
         $this->withoutExceptionHandling();
 
         $this->get(self::ENDPOINT.'/create')->assertOk();
+    }
 
+    public function test_view_edit_category_success(): void
+    {
+        $category = Category::factory()->create();
+
+        $this->get(self::ENDPOINT.'/edit/'.$category->category_id)->assertOk()->assertSee($category->name);
     }
 }
