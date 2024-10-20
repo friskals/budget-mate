@@ -73,23 +73,41 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::where([
+            'category_id'=>$id,
+            'user_id' => Auth::id()
+        ])->first();
+
+        if(is_null($category)){
+            session()->flash('error', 'category not exist');
+            return redirect()->route('category.index');
+        }
+
+        $icons = Icon::where('icon_usage', 'income')->get();
+
+        return view('frontsite.category.edit', [
+            'category' => $category,
+            'icons' => $icons
+            ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request, $id)
     {
         $validated_request= $request->validated();
 
-        $category = Category::where('category_id',$request['category_id'])->first();
+        $category = Category::where([
+            'category_id'=>$id,
+            'user_id' => Auth::id()
+        ])->first();
 
         if(!is_null($category)){
             $category->update($validated_request);
         }
 
-        return true;
+        return redirect()->route('category.index');
     }
 
     /**
