@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontsite\AccountController;
 use App\Http\Controllers\Frontsite\BudgetController;
 use App\Http\Controllers\Frontsite\BudgetUsageController;
+use App\Http\Controllers\Frontsite\CategoryController;
 use App\Http\Controllers\Frontsite\TransactionController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Frontsite\AccountController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
