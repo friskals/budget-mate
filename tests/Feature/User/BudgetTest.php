@@ -26,7 +26,7 @@ class BudgetTest extends UserBaseTestCase
             'day_of_month' => 1
         ];
 
-        $this->post(self::BUDGET_ENDPOINT, $budget_request);
+        $this->post(self::BUDGET_ENDPOINT, $budget_request)->assertRedirect(self::BUDGET_ENDPOINT);
 
         $this->assertDatabaseHas('budgets', [
             'name' => 'Education',
@@ -71,5 +71,23 @@ class BudgetTest extends UserBaseTestCase
         $this->delete(self::BUDGET_ENDPOINT.'/'.$budget->budget_id);
 
         $this->assertDatabaseMissing('budgets', ['budget_id' => $budget->budget_id]);
+    }
+
+    public function test_index_success(): void
+    {
+        $this->withoutExceptionHandling();
+
+        $category = Category::factory()->create();
+
+        $budget_request = [
+            'name' => 'Education',
+            'limit' => 100000,
+            'category_id' => $category->category_id,
+            'day_of_month' => 1
+        ];
+
+        $this->post(self::BUDGET_ENDPOINT, $budget_request)->assertRedirect(self::BUDGET_ENDPOINT);
+
+        $this->get(self::BUDGET_ENDPOINT)->assertSee('Education');
     }
 }
