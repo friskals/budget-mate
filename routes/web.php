@@ -38,13 +38,12 @@ Route::middleware(['auth'])->group(function (){
     });
 
     Route::prefix('budget')->group(function (){
+        Route::get('/create', [BudgetController::class, 'create'])->name('budget.create');
         Route::get('/', [BudgetController::class, 'index'])->name('budget.index');
         Route::post('/', [BudgetController::class, 'store'])->name('budget.store');
-        Route::put('/edit/{id}', [BudgetController::class, 'edit'])->name('budget.edit');
+        Route::get('/edit/{id}', [BudgetController::class, 'edit'])->name('budget.edit');
         Route::put('/{id}', [BudgetController::class, 'update'])->name('budget.update');
-        Route::get('/{id}', [BudgetController::class, 'show'])->name('budget.show');
         Route::delete('/{id}', [BudgetController::class, 'destroy'])->name('budget.destroy');
-
         Route::prefix('/usage')->group(function (){
             Route::post('/',[BudgetUsageController::class, 'index'])->name('budget.usage');
         });

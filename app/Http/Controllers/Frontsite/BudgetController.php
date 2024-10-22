@@ -31,7 +31,7 @@ class BudgetController extends Controller
         foreach ($budgets_categories  as $budgets_category){
             $budget = $budgets->where('budget_id', $budgets_category->budget_id)->first();
             $category = $user_categories->where('category_id', $budgets_category->category_id)->first();
-            $budget->categories = $budget->categories.','.$category->name;
+            $budget->category = $budget->category.','.$category->name;
         }
 
         return view('frontsite.budget.index', ['budgets' => $budgets]);
@@ -42,7 +42,9 @@ class BudgetController extends Controller
      */
     public function create()
     {
-        //
+        $categories  = Category::where('user_id', Auth::id())->get();
+
+        return view('frontsite.budget.create', ['categories' => $categories]);
     }
 
     /**
@@ -83,25 +85,21 @@ class BudgetController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $budget = Budget::where('budget_id', $id)->first();
-
-        if(is_null($budget)){
-            return [];
-        }
-
-        return $budget;
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $budget = Budget::where([
+            'user_id' => Auth::id(),
+            'budget_id' => $id
+        ])->firstOrFail();
+
+        $categories  = Category::where('user_id', Auth::id())->get();
+
+        return view('frontsite.budget.create', [
+            'categories' => $categories,
+            'budget' => $budget
+        ]);
     }
 
     /**
