@@ -12,7 +12,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Limit</th>
-                    <th scope="col">First Date of Month</th>
+                    <th scope="col">Start Date</th>
                     <th scope="col">Categories</th>
                     <th scope="col">Created At</th>
                     <th scope="col">Modified At</th>
@@ -28,7 +28,7 @@
                         <td>{{$budget->name}}</td>
                         <td>{{$budget->limit}}</td>
                         <td>{{$budget->day_of_month}}</td>
-                        <td>{{$budget->categories}}}</td>
+                        <td>{{$budget->category}}</td>
                         <td>{{$budget->created_at}}</td>
                         <td>{{$budget->updated_at}}</td>
                         <td>

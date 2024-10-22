@@ -96,7 +96,7 @@ class BudgetController extends Controller
 
         $categories  = Category::where('user_id', Auth::id())->get();
 
-        return view('frontsite.budget.create', [
+        return view('frontsite.budget.edit', [
             'categories' => $categories,
             'budget' => $budget
         ]);
@@ -118,7 +118,7 @@ class BudgetController extends Controller
 
         $budget->update($validated_data);
 
-        return true;
+        return redirect()->route('budget.index');
     }
 
     /**

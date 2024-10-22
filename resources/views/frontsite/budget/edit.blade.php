@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-xl">
                         <div class="card-body">
-                            <form method="POST" action="{{route('budget.update')}}">
+                            <form method="POST" action="{{route('budget.update', $budget->budget_id)}}">
                                 @csrf
                                 @method('PUT')
                                 <div class="mb-3">
@@ -17,14 +17,14 @@
 
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-limit">Limit</label>
-                                    <input type="numeric" name="limit" class="form-control" id="basic-default-limit" value="{{$budget->limit}}" />
+                                    <input type="number" name="limit" class="form-control" id="basic-default-limit"  value="{{$budget->limit}}" />
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-date">First Day of month</label>
-                                    <input type="date" name="name" class="form-control" id="basic-default-date" value="{{$budget->day_of_month}}" />
+                                    <input type="number" name="day_of_month" class="form-control" id="basic-default-date"  min="1" max="31" value="{{$budget->day_of_month}}" />
                                 </div>
-                                <select name="category_id" id="fruits" multiple size="5">
+                                <select name="category_id">
                                     @foreach($categories as $category)
                                         <option value="{{$category->category_id}}" {{ $category->category_id == $budget->category_id ? 'selected' : '' }}>{{$category->name}}</option>
                                     @endforeach
@@ -39,7 +39,7 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </form>
                         </div>
                 </div>

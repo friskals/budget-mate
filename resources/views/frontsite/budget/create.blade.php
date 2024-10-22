@@ -16,14 +16,14 @@
 
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-limit">Limit</label>
-                                <input type="numeric" name="limit" class="form-control" id="basic-default-limit" />
+                                <input type="number" name="limit" class="form-control" id="basic-default-limit" />
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-date">First Day of month</label>
-                                <input type="date" name="name" class="form-control" id="basic-default-date" />
+                                <input type="number" name="day_of_month" class="form-control" id="basic-default-date"  min="1" max="31"/>
                             </div>
-                            <select name="category_id" id="fruits" multiple size="5">
+                            <select name="category_id">
                                 @foreach($categories as $category)
                                     <option value="{{$category->category_id}}">{{$category->name}}</option>
                                 @endforeach
