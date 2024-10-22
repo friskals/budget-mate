@@ -5,11 +5,10 @@ namespace Tests\Feature\User;
 use App\Models\Budget;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class BudgetTest extends UserBaseTestCase
 {
-    const BUDGET_ENDPOINT = '/budget';
+    const ENDPOINT = '/budget';
 
     use RefreshDatabase;
 
@@ -26,7 +25,7 @@ class BudgetTest extends UserBaseTestCase
             'day_of_month' => 1
         ];
 
-        $this->post(self::BUDGET_ENDPOINT, $budget_request)->assertRedirect(self::BUDGET_ENDPOINT);
+        $this->post(self::ENDPOINT, $budget_request)->assertRedirect(self::ENDPOINT)->assertRedirect(self::ENDPOINT);
 
         $this->assertDatabaseHas('budgets', [
             'name' => 'Education',
@@ -40,15 +39,6 @@ class BudgetTest extends UserBaseTestCase
 
     }
 
-    public function test_show_budget_success(): void
-    {
-        $this->withoutExceptionHandling();
-
-        $budget = Budget::factory()->create();
-
-        $this->get(self::BUDGET_ENDPOINT.'/'.$budget->budget_id)->assertSee($budget->name);
-    }
-
     public function test_update_budget_success(): void
     {
         $this->withoutExceptionHandling();
@@ -57,7 +47,7 @@ class BudgetTest extends UserBaseTestCase
 
         $updated_budget['name'] = $budget->name.' Update';
 
-        $this->put(self::BUDGET_ENDPOINT.'/'.$budget->budget_id, $updated_budget);
+        $this->put(self::ENDPOINT.'/'.$budget->budget_id, $updated_budget);
 
         $this->assertDatabaseHas('budgets', ['budget_id'=> $budget->budget_id, 'name'=> $updated_budget['name']]);
     }
@@ -68,7 +58,7 @@ class BudgetTest extends UserBaseTestCase
 
         $budget = Budget::factory()->create();
 
-        $this->delete(self::BUDGET_ENDPOINT.'/'.$budget->budget_id);
+        $this->delete(self::ENDPOINT.'/'.$budget->budget_id);
 
         $this->assertDatabaseMissing('budgets', ['budget_id' => $budget->budget_id]);
     }
@@ -86,8 +76,22 @@ class BudgetTest extends UserBaseTestCase
             'day_of_month' => 1
         ];
 
-        $this->post(self::BUDGET_ENDPOINT, $budget_request)->assertRedirect(self::BUDGET_ENDPOINT);
+        $this->post(self::ENDPOINT, $budget_request)->assertRedirect(self::ENDPOINT);
 
-        $this->get(self::BUDGET_ENDPOINT)->assertSee('Education');
+        $this->get(self::ENDPOINT)->assertSee('Education');
+    }
+
+    public function test_view_create_budget_success(): void
+    {
+        $this->withoutExceptionHandling();
+
+        $this->get(self::ENDPOINT.'/create')->assertOk();
+    }
+
+    public function test_view_edit_budget_success(): void
+    {
+        $budget = Budget::factory()->create();
+
+        $this->get(self::ENDPOINT.'/edit/'.$budget->budget_id)->assertOk();
     }
 }
