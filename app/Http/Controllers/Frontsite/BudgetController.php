@@ -19,7 +19,22 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        //
+        $budgets = Budget::where('user_id', Auth::id())->get();
+
+        $user_categories = Category::where([
+            'user_id' => Auth::id(),
+            'type' => 'expense'
+        ])->get();
+
+        $budgets_categories = BudgetCategory::whereIn('budget_id', $budgets->pluck('budget_id')->toArray())->get();
+
+        foreach ($budgets_categories  as $budgets_category){
+            $budget = $budgets->where('budget_id', $budgets_category->budget_id)->first();
+            $category = $user_categories->where('category_id', $budgets_category->category_id)->first();
+            $budget->categories = $budget->categories.','.$category->name;
+        }
+
+        return view('frontsite.budget.index', ['budgets' => $budgets]);
     }
 
     /**
@@ -64,7 +79,7 @@ class BudgetController extends Controller
 
         BudgetCategory::insert($budget_categories);
 
-        return true;
+        return redirect()->route('budget.index');
     }
 
     /**

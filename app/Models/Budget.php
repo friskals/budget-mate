@@ -15,5 +15,7 @@ class Budget extends Model
         'budget_id'
     ];
 
+    protected $appends = ['categories'];
+
     use HasFactory;
 }
