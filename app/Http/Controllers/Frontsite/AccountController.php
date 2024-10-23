@@ -119,6 +119,6 @@ class AccountController extends Controller
 
         session()->flash('success', 'Account deleted successfully');
 
-        return true;
+        return redirect()->route('account.index');
     }
 }

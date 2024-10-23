@@ -14,7 +14,7 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Account Name</label>
-                                    <input type="text" name="name" class="form-control" id="basic-default-fullname" placeholder="BCA" />
+                                    <input type="text" name="name" class="form-control" id="basic-default-fullname" placeholder="Enter you account name" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-date">Balance</label>
