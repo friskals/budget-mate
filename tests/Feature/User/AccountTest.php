@@ -26,7 +26,7 @@ class AccountTest extends UserBaseTestCase
             'icon_id' => $icon->icon_id
         ];
 
-        $this->post(self::ACCOUNT_ENDPOINT, $store_request);
+        $this->post(self::ACCOUNT_ENDPOINT, $store_request)->assertRedirect(self::ACCOUNT_ENDPOINT);
 
         $this->assertDatabaseHas('accounts', $store_request);
     }
@@ -66,5 +66,12 @@ class AccountTest extends UserBaseTestCase
         $this->delete(self::ACCOUNT_ENDPOINT.'/'.$account->account_id);
 
         $this->assertDatabaseMissing('accounts', ['account_id' => $account->account_id]);
+    }
+
+    public function test_view_create_account_success(): void
+    {
+        $this->withoutExceptionHandling();
+
+        $this->get(self::ACCOUNT_ENDPOINT.'/create')->assertSeeText('Account');
     }
 }
