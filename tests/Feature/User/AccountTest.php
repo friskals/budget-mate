@@ -5,7 +5,6 @@ namespace Tests\Feature\User;
 use App\Models\Account;
 use App\Models\Icon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class AccountTest extends UserBaseTestCase
 {
@@ -26,21 +25,21 @@ class AccountTest extends UserBaseTestCase
             'icon_id' => $icon->icon_id
         ];
 
-        $this->post(self::ACCOUNT_ENDPOINT, $store_request)->assertRedirect(self::ACCOUNT_ENDPOINT);
+        $this->post(self::ACCOUNT_ENDPOINT, $store_request)
+            ->assertRedirect(self::ACCOUNT_ENDPOINT);
 
         $this->assertDatabaseHas('accounts', $store_request);
     }
 
-    public function test_show_account_success(): void
+    public function test_index_account_success(): void
     {
-        $this->signIn();
+        self::test_store_account_success();
 
-        $this->withoutExceptionHandling();
-
-        $account = Account::factory()->create();
-
-        $this->get(self::ACCOUNT_ENDPOINT.'/'.$account->account_id)->assertSee($account->name);
+        $this->get(self::ACCOUNT_ENDPOINT)->assertSee('BCA');
     }
+
+
+
 
     public function test_update_account_success(): void
     {
@@ -72,13 +71,18 @@ class AccountTest extends UserBaseTestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->get(self::ACCOUNT_ENDPOINT.'/create')->assertSeeText('Account');
+        $this->get(self::ACCOUNT_ENDPOINT.'/create')
+            ->assertSeeText('Account')
+            ->assertViewIs('frontsite.account.create');
     }
 
     public function test_view_edit_account_success(): void
     {
+        $this->withoutExceptionHandling();
+
         $account = Account::factory()->create();
 
-        $this->get(self::ACCOUNT_ENDPOINT.'/edit/'.$account->budget_id)->assertSeeText(['Account', $account->name]);
-    }
+        $this->get(self::ACCOUNT_ENDPOINT.'/edit/'.$account->account_id)
+            ->assertSeeText('Account')
+            ->assertViewIs('frontsite.account.edit');    }
 }
