@@ -2,7 +2,6 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-8 mt-3">
-            <h1 class="text-center mb-4">Add account</h1>
             <!-- Create Update -->
             <div class="row">
                 <div class="col-xl">

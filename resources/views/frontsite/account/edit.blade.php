@@ -2,7 +2,6 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-8 mt-3">
-            <h1 class="text-center mb-4">Add account</h1>
             <!-- Create Update -->
             <div class="row">
                 <div class="col-xl">
@@ -13,6 +12,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{route('account.update', $account->account_id)}}">
                             @csrf
+                            @method('PUT')
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Account Name</label>
                                 <input type="text" name="name" class="form-control" id="basic-default-fullname" value="{{$account->name}}" />
@@ -23,7 +23,7 @@
                             </div>
                             @foreach($icons as $icon)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="icon_id" id="flexRadioDefault1"  value="{{$icon->icon_id}}" {{$icon->icon_id == $category->icon_id ? 'checked':''}}/>
+                                    <input class="form-check-input" type="radio" name="icon_id" id="flexRadioDefault1"  value="{{$icon->icon_id}}" {{$icon->icon_id == $account->icon_id ? 'checked':''}}/>
                                     <img  class="small-image" src="{{ Storage::url($icon->logo) }}" alt="Profile Image">
                                 </div>
                             @endforeach
