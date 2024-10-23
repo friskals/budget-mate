@@ -74,4 +74,11 @@ class AccountTest extends UserBaseTestCase
 
         $this->get(self::ACCOUNT_ENDPOINT.'/create')->assertSeeText('Account');
     }
+
+    public function test_view_edit_account_success(): void
+    {
+        $account = Account::factory()->create();
+
+        $this->get(self::ACCOUNT_ENDPOINT.'/edit/'.$account->budget_id)->assertSeeText(['Account', $account->name]);
+    }
 }
