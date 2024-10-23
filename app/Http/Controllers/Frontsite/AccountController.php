@@ -8,6 +8,7 @@ use App\Http\Requests\Frontsite\Account\AccountStoreRequest;
 use App\Http\Requests\Frontsite\Account\AccountUpdateRequest;
 use App\Library\Common\IdGenerator;
 use App\Models\Account;
+use App\Models\Icon;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -25,7 +26,9 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        $icons = Icon::where('icon_usage','account')->get();
+
+        return view('frontsite.account.create', ['icons' => $icons]);
     }
 
     /**
