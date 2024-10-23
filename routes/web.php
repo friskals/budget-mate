@@ -28,7 +28,6 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/create', [AccountController::class, 'create'])->name('account.create');
         Route::get('/edit/{id}', [AccountController::class, 'edit'])->name('account.edit');
         Route::post('/', [AccountController::class, 'store'])->name('account.store');
-        Route::get('/{id}', [AccountController::class,'show'])->name('account.show');
         Route::put('/{id}', [AccountController::class,'update'])->name('account.update');
         Route::delete('/{id}', [AccountController::class,'destroy'])->name('account.destroy');
     });

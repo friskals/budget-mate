@@ -61,16 +61,6 @@ class AccountController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $account = Account::where('account_id', $id)->first();
-
-        return $account;
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
