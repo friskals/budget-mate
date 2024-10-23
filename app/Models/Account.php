@@ -16,4 +16,6 @@ class Account extends Model
         'account_id',
         'user_id'
     ];
+
+    protected $appends =['icon'];
 }

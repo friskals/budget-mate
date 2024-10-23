@@ -24,8 +24,9 @@ Route::middleware(['auth'])->group(function (){
     });
 
     Route::prefix('account')->group(function (){
+        Route::get('/', [AccountController::class, 'index'])->name('account.index');
         Route::get('/create', [AccountController::class, 'create'])->name('account.create');
-        Route::get('/edit', [AccountController::class, 'edit'])->name('account.edit');
+        Route::get('/edit/{id}', [AccountController::class, 'edit'])->name('account.edit');
         Route::post('/', [AccountController::class, 'store'])->name('account.store');
         Route::get('/{id}', [AccountController::class,'show'])->name('account.show');
         Route::put('/{id}', [AccountController::class,'update'])->name('account.update');

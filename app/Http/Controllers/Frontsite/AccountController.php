@@ -10,6 +10,7 @@ use App\Library\Common\IdGenerator;
 use App\Models\Account;
 use App\Models\Icon;
 use Illuminate\Support\Facades\Auth;
+use function GuzzleHttp\json_encode;
 
 class AccountController extends Controller
 {
@@ -18,7 +19,19 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        $accounts = Account::where('user_id', Auth::id())->get();
+
+        $icons = Icon::where('icon_usage','account')->get();
+
+        foreach ($accounts as $account){
+            $account_icon = $icons->where('icon_id', $account->icon_id)->first();
+
+            if(!is_null($account_icon)){
+             $account->icon = $account_icon->logo;
+            }
+        }
+
+        return view('frontsite.account.index', ['accounts'=>$accounts]);
     }
 
     /**
@@ -27,6 +40,7 @@ class AccountController extends Controller
     public function create()
     {
         $icons = Icon::where('icon_usage','account')->get();
+
 
         return view('frontsite.account.create', ['icons' => $icons]);
     }
@@ -43,7 +57,7 @@ class AccountController extends Controller
 
         Account::create($account_data);
 
-        return true;
+        return redirect()->route('account.index');
     }
 
     /**
@@ -52,6 +66,7 @@ class AccountController extends Controller
     public function show(string $id)
     {
         $account = Account::where('account_id', $id)->first();
+
         return $account;
     }
 
@@ -97,7 +112,7 @@ class AccountController extends Controller
 
         session()->flash('success', 'Account updated successfully');
 
-        return true;
+        return redirect()->route('account.index');
     }
 
     /**
