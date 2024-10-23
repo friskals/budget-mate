@@ -60,7 +60,17 @@ class AccountController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $account = Account::where([
+            'user_id'=> Auth::id(),
+            'account_id' => $id
+        ])->firstOrFail();
+
+        $icons = Icon::where('icon_usage','account')->get();
+
+        return view('frontsite.account.edit', [
+            'icons' => $icons,
+            'account' => $account
+        ]);
     }
 
     /**
